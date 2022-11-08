@@ -1,18 +1,15 @@
-FROM mcr.microsoft.com/devcontainers/cpp:0-ubuntu-20.04
+# generated from docker_images/create_ros_image.Dockerfile.em
+FROM tiryoh/ros-desktop-vnc:noetic
 
-ARG REINSTALL_CMAKE_VERSION_FROM_SOURCE="3.22.2"
+# Source ROS
+RUN apt-get update && apt-get install -y ros-noetic-tf
+RUN echo 'source /opt/ros/noetic/setup.bash' >> ~/.bashrc
 
-# Optionally install the cmake for vcpkg
-COPY ./reinstall-cmake.sh /tmp/
-
-RUN if [ "${REINSTALL_CMAKE_VERSION_FROM_SOURCE}" != "none" ]; then \
-        chmod +x /tmp/reinstall-cmake.sh && /tmp/reinstall-cmake.sh ${REINSTALL_CMAKE_VERSION_FROM_SOURCE}; \
-    fi \
-    && rm -f /tmp/reinstall-cmake.sh
-
-# [Optional] Uncomment this section to install additional vcpkg ports.
-# RUN su vscode -c "${VCPKG_ROOT}/vcpkg install <your-port-name-here>"
-
-# [Optional] Uncomment this section to install additional packages.
-# RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
-#     && apt-get -y install --no-install-recommends <your-package-list-here>
+# Install Git, Python pip, tf
+RUN apt-get update && apt-get install -y git python3-pykdl pip libasound2-dev
+RUN apt install -y ninja-build
+RUN apt install -y clang
+# # clone AMBF
+CMD ["./entry.sh" ]
+# RUN . /opt/ros/noetic/setup.sh && cd ~/ambf && mkdir build && cd build && cmake .. && make
+# RUN echo 'source ~/ambf/build/devel/setup.bash' >> ~/.bashrc

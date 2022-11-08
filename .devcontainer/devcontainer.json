@@ -1,5 +1,5 @@
 {
-	"name": "C++",
+	"name": "Trying Hard",
 	"build": {
 		"dockerfile": "Dockerfile"
 	},
@@ -8,8 +8,8 @@
 	// "forwardPorts": [],
 
 	// Use 'postCreateCommand' to run commands after the container is created.
-	// "postCreateCommand": "gcc -v",
+	//"postCreateCommand": "./entry.sh"
 
 	// Comment out to connect as root instead. More info: https://aka.ms/vscode-remote/containers/non-root.
-	"remoteUser": "vscode"
+	//"remoteUser": "vscode"
 }
